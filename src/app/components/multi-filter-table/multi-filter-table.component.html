@@ -1,0 +1,39 @@
+<div class="multicont">
+    <div class="toolbar">
+      <button class="toolbar-btn">
+        <i class="toolbar-btn-icon"><mat-icon>view_column</mat-icon></i>
+        <span class="toolbar-btn-text">COLUMNS</span> 
+      </button>
+      <button class="toolbar-btn">
+        <i class="toolbar-btn-icon"><mat-icon>filter_list</mat-icon></i>
+        <span class="toolbar-btn-text">FILTERS</span>
+      </button>
+      <button class="toolbar-btn">
+        <i class="toolbar-btn-icon"><mat-icon>horizontal_split</mat-icon></i>
+        <span class="toolbar-btn-text">DENSITY</span>
+      </button>
+      <button class="toolbar-btn">
+        <i class="toolbar-btn-icon"><mat-icon>archive</mat-icon></i>
+        <span class="toolbar-btn-text">EXPORT</span>
+      </button>
+    </div>
+    <div class="tblcontainer">  <!--this is flex container-->
+      <div class="tblhead">
+        <div class="thitem" *ngFor="let key of keys">
+          <span class="thtext">{{key}}</span>
+        </div>
+      </div>
+      <div class="tblbody">
+        <div class="tblrow" *ngFor="let data of dataSource">
+          <div class="tblcolumn" *ngFor="let key of keys">
+            <div class="tbitem" id={{data.id}}>
+              <span class="tbtext">{{ data[key] }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pagenator">
+
+    </div>
+</div> 

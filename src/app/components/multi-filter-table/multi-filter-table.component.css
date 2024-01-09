@@ -1,0 +1,72 @@
+.multicont{
+  -webkit-box-shadow: 6px -5px 23px -3px rgba(0,0,0,0.21);
+  -moz-box-shadow: 6px -5px 23px -3px rgba(0,0,0,0.21);
+  box-shadow: 6px -5px 23px -3px rgba(0,0,0,0.21);
+}
+
+.toolbar{
+  display: inline-flex;
+}
+
+.toolbar-btn{
+  background: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.toolbar-btn{
+  display: flex;
+  width: min-content;
+  align-items: center;
+  text-align: center;
+  margin: 3px;
+  height: 30px;
+  padding: 5px;
+}
+
+.toolbar-btn-text{
+  margin: 2px;
+  color: #0388a8;
+}
+
+
+.toolbar-btn-icon{
+  margin: 2px;
+  color: #0388a8;
+}
+
+.toolbar-btn:hover{
+  background-color: #ebf7fa;
+}
+
+.tblcontainer{
+  height: 400px;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  text-wrap: nowrap;
+}
+
+.tblhead{
+  position: relative;
+  display: flex;
+
+  align-items: center;
+  box-sizing: border-box;
+  border-bottom: 1px solid;
+  flex-direction: row;
+}
+
+.tblbody{
+  display: flex;
+  position: relative;
+  overflow: auto;
+  flex-direction: column;
+}
+
+.tblrow{
+  display: flex;
+  flex-direction: row;
+}
+
