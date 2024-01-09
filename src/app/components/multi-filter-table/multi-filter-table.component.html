@@ -17,21 +17,41 @@
         <span class="toolbar-btn-text">EXPORT</span>
       </button>
     </div>
-    <div class="tblcontainer">  <!--this is flex container-->
-      <div class="tblhead">
-        <div class="thitem" *ngFor="let key of keys">
-          <span class="thtext">{{key}}</span>
-        </div>
-      </div>
-      <div class="tblbody">
-        <div class="tblrow" *ngFor="let data of dataSource">
-          <div class="tblcolumn" *ngFor="let key of keys">
-            <div class="tbitem" id={{data.id}}>
+    <div class="tblcontainer"> 
+      <table class="multitable">
+        <thead>
+          <tr>
+            <th *ngFor="let head of keys">
+              <div class="headitem">
+                <span>{{head}}</span>
+                <div class="sort_option">
+                  <span class="sort_unset" *ngIf="col_detl[head].sort == 0"> 
+                    <mat-icon class="msicon">arrow_downward</mat-icon> 
+                  </span>
+                  <span class="desc" *ngIf="col_detl[head].sort == 2"> 
+                    <mat-icon class="msicon">arrow_downward</mat-icon> 
+                  </span>
+                  <span class="asc" *ngIf="col_detl[head].sort == 1"> 
+                    <mat-icon class="msicon">arrow_upward</mat-icon> 
+                  </span>
+                </div>
+                <div class="slider">
+                  <div class="drag_icon_container">
+                    <mat-icon>drag_indicator</mat-icon>
+                  </div>
+                </div>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of dataSource">
+            <td *ngFor="let key of keys">
               <span class="tbtext">{{ data[key] }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div class="pagenator">
 
