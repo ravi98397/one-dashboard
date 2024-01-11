@@ -1,10 +1,10 @@
 <div class="multicont">
     <div class="toolbar">
-      <button class="toolbar-btn">
+      <button class="toolbar-btn" (click)="toggle_column_pallet()">
         <i class="toolbar-btn-icon"><mat-icon>view_column</mat-icon></i>
         <span class="toolbar-btn-text">COLUMNS</span> 
       </button>
-      <button class="toolbar-btn">
+      <button class="toolbar-btn" (click)="toggle_filter_pallet()">
         <i class="toolbar-btn-icon"><mat-icon>filter_list</mat-icon></i>
         <span class="toolbar-btn-text">FILTERS</span>
       </button>
@@ -21,7 +21,7 @@
       <table class="multitable">
         <thead>
           <tr>
-            <th *ngFor="let head of keys">
+            <th *ngFor="let head of keys_sel">
               <div class="headitem">
                 <span>{{head}}</span>
                 <div class="sort_option">
@@ -43,10 +43,83 @@
               </div>
             </th>
           </tr>
+          <div class="filter_pallet" *ngIf="filter_pallet_toggle">
+            <div class="filter_list">
+              <div class="filter_item">
+                <div class="filter_del_btn">
+                  <button>
+                    <mat-icon class="filter_del_icon">close</mat-icon>
+                  </button>
+                </div>
+                <div class="column_dropdown_selector">
+                  <label for="filter_col_sel" class="filter_col_sel_label">Columns</label>
+                  <div class="filter_col_sel_set">
+                    <select name="filter_col_sel" class="filter_col_sel">
+                      <option value="{{key}}" *ngFor="let key of keys">{{key}}</option>
+                    </select>
+                    <mat-icon class="filter_col_sel_icon">arrow_drop_down</mat-icon>
+                  </div>
+                </div>
+                <div class="operator_dropdown_selector">
+                  <label for="operator_col_sel" class="operator_col_sel_label">Operator</label>
+                  <div class="operator_col_sel_set">
+                    <select name="operator_col_sel" class="operator_col_sel">
+                      <option value="contains">contains</option>
+                      <option value="equals">equals</option>
+                      <option value="start with">start with</option>
+                      <option value="ends with">ends with</option>
+                      <option value="is not empty">is not empty</option>
+                      <option value="is any empty">is any empty</option>
+                    </select>
+                    <mat-icon class="operator_col_sel_icon">arrow_drop_down</mat-icon>
+                  </div>
+                </div>
+                <div class="value_input_text_cont">
+                  <label for="value_input_text" class="value_input_label">Value</label>
+                  <div class="value_input_set">
+                    <input type="text" name="value_input_text" class="value_input_text" placeholder="Filter Value">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="filter_optn_btns">
+                <button class="filter_btn">
+                  <i class="filter_btn_icon"><mat-icon>add</mat-icon></i>
+                  <span class="filter_btn_text">ADD FILTER</span>
+                </button>
+                <button class="filter_btn">
+                  <i class="filter_btn_icon"><mat-icon>delete_forever</mat-icon></i>
+                  <span class="filter_btn_text">REMOVE ALL</span>
+                </button>
+            </div>
+          </div>
+          <div class="column_pallet" *ngIf="column_sel_toggle">
+            <div class="cp_srch">
+              <span class="cp_srch_hdr">Find column</span>
+              <input type="text" placeholder="Column title" class="cp_srch_inp">
+            </div>
+            <div class="column_sel_cont">
+              <div class="column_sel" *ngFor="let col of keys">
+                <div class="checkbox">
+                  <input type="checkbox" [(ngModel)]="col_detl[col].show"  (change)="columnSelector()"/>
+                  <label></label>
+                </div>
+                <div class="col_label">{{col_detl[col].col}}</div>
+              </div>
+            </div>
+            <div class="col_sel_btn_grp">
+              <button class="col_sel_btn">
+                <span class="col_sel_btn-text">HIDE ALL</span> 
+              </button>
+              <button class="col_sel_btn">
+                <span class="col_sel_btn-text">SHOW ALL</span> 
+              </button>
+            </div>
+          </div>
         </thead>
         <tbody>
           <tr *ngFor="let data of dataSource">
-            <td *ngFor="let key of keys">
+            <td *ngFor="let key of keys_sel">
               <span class="tbtext">{{ data[key] }}</span>
             </td>
           </tr>

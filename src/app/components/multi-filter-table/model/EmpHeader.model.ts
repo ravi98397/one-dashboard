@@ -1,3 +1,5 @@
+import { Employee } from "./Employee.model"
+
 export enum SortEnum {
     unset = 0,
     asc = 1,
@@ -5,7 +7,7 @@ export enum SortEnum {
   }
   
   export interface ColumnDetl{
-    col: String
+    col: (keyof Employee)
     show: boolean
     sort: SortEnum
   }

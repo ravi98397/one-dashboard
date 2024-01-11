@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Employee } from './model/Employee.model';
 import { tbldata } from './model/data';
 import { KeyValuePipe } from '@angular/common';
@@ -12,8 +12,23 @@ export enum SortEnum {
   desc = 2
 }
 
+export enum FilterOptions {
+  contains = 0,
+  equals,
+  start_with,
+  ends_with,
+  is_empty,
+  is_not_empty
+}
+
+export interface FilterModel{
+  column: (keyof Employee),
+  filter: FilterOptions,
+  filterValue: String 
+}
+
 export interface ColumnDetl{
-  col: String
+  col: (keyof Employee)
   show: boolean
   sort: SortEnum
 }
@@ -23,26 +38,34 @@ export interface ColumnDetl{
   templateUrl: './multi-filter-table.component.html',
   styleUrl: './multi-filter-table.component.css'
 })
-export class MultiFilterTableComponent {
+export class MultiFilterTableComponent implements OnInit {
+  
+  column_sel_toggle: boolean = false;
+  filter_pallet_toggle: boolean = false;
+
+  dataSource = TBL_DATA;
+
+  keys_sel: (keyof Employee)[] = []
+
   col_detl: EmpHead = {
-    "id" : { col: "id", show: true, sort: 0 },
-    "Name" : { col: "id", show: true, sort: 0 },
-    "Website" : { col: "id", show: true, sort: 0 },
-    "Rating" : { col: "id", show: true, sort: 0 },
-    "Email" : { col: "id", show: true, sort: 0 },
-    "Phone" : { col: "id", show: true, sort: 0 },
-    "Username" : { col: "id", show: true, sort: 0 },
-    "City" : { col: "id", show: true, sort: 0 },
-    "Country" : { col: "id", show: true, sort: 0 },
-    "Company" : { col: "id", show: true, sort: 0 },
-    "Position" : { col: "id", show: true, sort: 0 },
-    "Updated_on" : { col: "id", show: true, sort: 0 },
-    "Created_on" : { col: "id", show: true, sort: 0 },
-    "Is_admin" : { col: "id", show: true, sort: 0 },
-    "Salary" : { col: "id", show: true, sort: 0 }
+    "id" : { col: 'id', show: true, sort: 0 },
+    "Name" : { col: 'Name', show: true, sort: 0 },
+    "Website" : { col: 'Website', show: true, sort: 0 },
+    "Rating" : { col: 'Rating', show: true, sort: 0 },
+    "Email" : { col: 'Email', show: true, sort: 0 },
+    "Phone" : { col: 'Phone', show: true, sort: 0 },
+    "Username" : { col: 'Username', show: true, sort: 0 },
+    "City" : { col: 'City', show: true, sort: 0 },
+    "Country" : { col: 'Country', show: true, sort: 0 },
+    "Company" : { col: 'Company', show: true, sort: 0 },
+    "Position" : { col: 'Position', show: true, sort: 0 },
+    "Updated_on" : { col: 'Updated_on', show: true, sort: 0 },
+    "Created_on" : { col: 'Created_on', show: true, sort: 0 },
+    "Is_admin" : { col: 'Is_admin', show: true, sort: 0 },
+    "Salary" : { col: 'Salary', show: true, sort: 0 }
   }
 
-  keys : (keyof Employee)[] = ['id',
+  keys : (keyof EmpHead)[] = ['id',
   'Name',
   'Website',
   'Rating',
@@ -57,12 +80,13 @@ export class MultiFilterTableComponent {
   'Created_on',
   'Is_admin',
   'Salary']
-  
-  dataSource = TBL_DATA;
 
-  constructor(){
-    let key="id";
-    let d = this.dataSource[0]["id"];
+  filters: FilterModel[] = [];
+
+  constructor(){}
+
+  ngOnInit(){
+    this.columnSelector();
   }
 
   column = true;
@@ -70,6 +94,25 @@ export class MultiFilterTableComponent {
   getValue(obj: Employee, key: String){
     console.log(obj[key as keyof Employee])
     return obj[key as keyof Employee];
+  }
+
+  toggle_column_pallet(){this.column_sel_toggle = !this.column_sel_toggle;}
+  toggle_filter_pallet(){this.filter_pallet_toggle = !this.filter_pallet_toggle;}
+
+  columnSelector(){
+    let col: (keyof EmpHead);
+    let newkeys: (keyof Employee)[] = [];
+    for(col in this.col_detl){
+      if(this.col_detl[col].show == true){
+        newkeys.push(this.col_detl[col].col);
+      }
+    }
+    let lkey : (keyof EmpHead);
+    for(lkey in this.col_detl){
+      this.col_detl[lkey]
+    }
+
+    this.keys_sel = newkeys;
   }
 
   myFunction(){}

@@ -13,6 +13,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { FormsModule } from '@angular/forms';
+import { ClickOutsideDirectiveDirective } from './multi-filter-table/click-outside-directive.directive';
 
 
 
@@ -22,11 +24,13 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
   declarations: [
     SideNavComponent,
     SublevelMenuComponent,
-    MultiFilterTableComponent
+    MultiFilterTableComponent,
+    ClickOutsideDirectiveDirective
   ],
   imports: [
     CommonModule,
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     MatIconModule,
     MatTableModule,
