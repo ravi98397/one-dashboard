@@ -8,24 +8,25 @@
   display: inline-flex;
 }
 
-.toolbar-btn, .filter_btn{
+.toolbar-btn, .filter_btn, .col_sel_btn{
   background: none;
   margin: 0;
   padding: 0;
   border: none;
 }
 
-.toolbar-btn, .filter_btn{
+.toolbar-btn, .filter_btn, .col_sel_btn{
   display: flex;
   width: min-content;
   align-items: center;
   text-align: center;
+  text-wrap: nowrap;
   margin: 3px;
   height: 30px;
   padding: 5px;
 }
 
-.toolbar-btn-text, .filter_btn_text{
+.toolbar-btn-text, .filter_btn_text, .col_sel_btn_text{
   margin: 2px;
   color: #0388a8;
 }
@@ -36,7 +37,7 @@
   color: #0388a8;
 }
 
-.toolbar-btn:hover, .filter_btn:hover{
+.toolbar-btn:hover, .filter_btn:hover, .col_sel_btn:hover{
   background-color: #ebf7fa;
 }
 
@@ -111,7 +112,7 @@
 
 /* column pallet styling */
 
-.column_pallet{
+.column_pallet_items{
   width: 300px;
   display: flex;
   flex-direction: column;
@@ -267,31 +268,8 @@
   justify-content: space-between;
 }
 
-.col_sel_btn{
-  all:unset;
-}
 
-.col_sel_btn{
-  display: flex;
-  width: min-content;
-  align-items: center;
-  text-align: center;
-  margin: 3px;
-  height: 30px;
-  padding: 5px;
-}
-
-.col_sel_btn-text{
-  margin: 2px;
-  color: #0388a8;
-}
-
-.col_sel_btn:hover{
-  background-color: #ebf7fa;
-}
-
-
-.filter_pallet{
+/* .filter_pallet{
   position: absolute;
   width: 510px;
   display: flex;
@@ -309,9 +287,28 @@
   box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2), 
               0px 8px 10px 1px rgba(0,0,0,0.14), 
               0px 3px 14px 2px rgba(0,0,0,0.12);
-}
+} */
 
 .filter_list{
+  position: absolute;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  color: #1C2025;
+  line-height: 24px;
+  font-size: 16px;
+  font-weight: 400;  
+  background-color: white;
+  z-index: 10;
+  border-radius: 4px;
+  max-height: 450px;
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2), 
+              0px 8px 10px 1px rgba(0,0,0,0.14), 
+              0px 3px 14px 2px rgba(0,0,0,0.12);
+}
+
+.filter_items{
   display: flex;
   flex-direction: column;
   padding: 8px;
@@ -320,9 +317,12 @@
 .filter_item{
   display: flex;
   flex-direction: row;
+  margin: 4px 0px;
 }
 
 .filter_del_icon{
+  position: absolute;
+  padding: 2px;
   color:rgba(0, 0, 0, 0.54);
 }
 
@@ -330,7 +330,7 @@
   display: inline-flex;
   flex-direction: column;
   margin: 0px 4px 1.6px 0px;
-  vertical-align: top;
+  vertical-align: bottom;
   justify-content: flex-end;
 }
 
@@ -352,6 +352,8 @@
 }
 
 .column_dropdown_selector{
+  display: flex;
+  flex-direction: column;
   width: 150px;
 }
 
@@ -360,12 +362,11 @@
 }
 
 
-.filter_col_sel_label, .operator_col_sel_label, .value_input_label{
+.filter_col_sel_label, .operator_col_sel_label, .value_input_label, .filter_con_sel_label{
   color: rgba(0, 0, 0, 0.6);
-  font-family: Roboto, Helvetica, Arial, sans-serif;
   font-weight: 400;
   font-size: 1rem;
-  line-height: 1.4375em;
+  line-height: 1em;
   letter-spacing: 0.00938em;
   padding: 0px;
   display: block;
@@ -374,13 +375,11 @@
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 133%;
-  left: 0px;
-  top: 0px;
   transform: translate(0px, -1.5px) scale(0.75);
   transition: color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms, transform 200ms cubic-bezier(0, 0, 0.2, 1) 0ms, max-width 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
 }
 
-.filter_col_sel_set, .operator_col_sel_set, .value_input_set{
+.filter_col_sel_set, .operator_col_sel_set, .value_input_set, .filter_con_sel_set{
   width: 150px;
   font-weight: 400;
   font-size: 1rem;
@@ -401,26 +400,40 @@
   width: 120px;
 }
 
-.filter_col_sel_set:hover, .operator_col_sel_set:hover, .value_input_set:hover{
+.filter_col_sel_set:hover, .operator_col_sel_set:hover, .value_input_set:hover, .filter_con_sel_set:hover{
   border-bottom: 2px solid rgba(0, 0, 0, 0.87);
 }
 
-.filter_col_sel_set:focus-within, .operator_col_sel_set:focus-within, .value_input_set:focus-within{
+.filter_col_sel_set:focus-within, 
+.operator_col_sel_set:focus-within, 
+.value_input_set:focus-within,
+.filter_con_sel_set:focus-within{
   border-bottom: 2px solid #0388a8;
 }
 
-.filter_col_sel, .operator_col_sel{
+.filter_col_sel, .operator_col_sel, .filter_con_sel{
   all:unset;
   display: block;
-  padding: 4px 0px 5px;
+  padding-top: 4px;
+  padding-bottom: 5px;
+  padding-right: 24px;
   box-sizing: content-box;
   background: none;
-  height: 1.4375em;
+  height: 48px;
+  height: 1.4em;
   display: block;
   width: 100%;
 }
 
-.filter_col_sel_icon, .operator_col_sel_icon{
+.filter_con_sel{
+  padding-top: 10px;
+}
+
+.filter_con_sel, .filter_con_sel_set{
+  width: 55px;
+}
+
+.filter_col_sel_icon, .operator_col_sel_icon, .filter_con_sel_icon{
   position: absolute;
   right: 0;
   top: 4px;
@@ -435,7 +448,7 @@
   color: currentcolor;
   padding: 4px 0px 5px;
   box-sizing: content-box;
-  height: 1.4375em;
+  height: 1.4em;
   margin: 0px;
   cursor: text;
   -webkit-tap-highlight-color: transparent;
@@ -449,12 +462,12 @@
   width: 190px;
 }
 
-
 /* filter button options */
 .filter_optn_btns{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  
 }
 
 

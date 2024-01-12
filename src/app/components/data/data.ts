@@ -1,4 +1,4 @@
-import { Employee } from "./Employee.model";
+import { Employee } from "../multi-filter-table/model/Employee.model";
 export const tbldata: Employee[] = [
     {      
       id: "06585782-ce36-5b63-9dad-d79904c50d6b",

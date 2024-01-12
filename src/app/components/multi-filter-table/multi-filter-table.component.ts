@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Employee } from './model/Employee.model';
-import { tbldata } from './model/data';
+import { tbldata } from '../data/data';
 import { KeyValuePipe } from '@angular/common';
 import { EmpHead } from './model/EmpHeader.model';
 
@@ -21,10 +21,17 @@ export enum FilterOptions {
   is_not_empty
 }
 
+export enum Connectors {
+  none = -1,
+  and = 0,
+  or = 1
+}
+
 export interface FilterModel{
-  column: (keyof Employee),
-  filter: FilterOptions,
-  filterValue: String 
+  col: (keyof Employee);
+  connector: (Connectors);
+  filter: FilterOptions;
+  filterValue: String;
 }
 
 export interface ColumnDetl{
@@ -81,7 +88,12 @@ export class MultiFilterTableComponent implements OnInit {
   'Is_admin',
   'Salary']
 
-  filters: FilterModel[] = [];
+  filters: FilterModel[] = [{
+    'col': 'id',
+    'connector': Connectors.none,
+    'filter': FilterOptions.contains,
+    'filterValue': ""
+  }];
 
   constructor(){}
 
@@ -115,5 +127,40 @@ export class MultiFilterTableComponent implements OnInit {
     this.keys_sel = newkeys;
   }
 
-  myFunction(){}
+  outFilterClick(): void{
+    if(this.filter_pallet_toggle == true){
+      this.filter_pallet_toggle = false;
+    } 
+  }
+  outColumnClick(): void{
+    if(this.column_sel_toggle == true){
+      this.column_sel_toggle = false;
+    } 
+  }
+
+  addFilter(){
+    this.filters.push({
+      'col': 'id',
+      'connector': Connectors.and,
+      'filter': FilterOptions.contains,
+      'filterValue': ""
+    })
+  }
+
+  removeFilter(){
+    
+  }
+
+  removeAllFilter(){
+    this.filters = [{
+      'col': 'id',
+      'connector': Connectors.none,
+      'filter': FilterOptions.contains,
+      'filterValue': ""
+    }];
+  }
+
+  applyFilter(){
+
+  }
 }
