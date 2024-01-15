@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from '../app-routing.module';
@@ -39,6 +39,7 @@ import { ClickOutsideDirectiveDirective } from './multi-filter-table/click-outsi
     MatSlideToggleModule,
     MatMenuModule
   ],
+  providers: [DatePipe],
   exports: [
     SideNavComponent,
     MultiFilterTableComponent

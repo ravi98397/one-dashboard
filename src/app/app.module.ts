@@ -10,6 +10,7 @@ import { SettingComponent } from './setting/setting.component';
 import { UserComponent } from './user/user.component';
 import { UtilityModule } from './utility/utility.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BodyComponent,
     DashboardComponent,
     SettingComponent,
-    UserComponent
+    UserComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

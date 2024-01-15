@@ -44,7 +44,7 @@
               </div>
               <div class="filter_con_sel" *ngIf="filters.length > 1">
                 <div class="filter_con_sel_set" *ngIf="filter.connector > -1">
-                  <select name="filter_con_sel" class="filter_con_sel" [(ngModel)]="filter.connector">
+                  <select name="filter_con_sel" class="filter_con_sel" (change)="applyFilter()" [(ngModel)]="filter.connector">
                     <option value="0" >AND</option>
                     <option value="1" >OR</option>
                   </select>
@@ -54,7 +54,7 @@
               <div class="column_dropdown_selector">
                 <label for="filter_col_sel" class="filter_col_sel_label">Columns</label>
                 <div class="filter_col_sel_set">
-                  <select name="filter_col_sel" class="filter_col_sel" [(ngModel)]="filter.col">
+                  <select name="filter_col_sel" class="filter_col_sel" (change)="applyFilter()" [(ngModel)]="filter.col">
                     <option value="{{key}}" *ngFor="let key of keys">{{key}}</option>
                   </select>
                   <mat-icon class="filter_col_sel_icon">arrow_drop_down</mat-icon>
@@ -63,13 +63,13 @@
               <div class="operator_dropdown_selector">
                 <label for="operator_col_sel" class="operator_col_sel_label">Operator</label>
                 <div class="operator_col_sel_set">
-                  <select name="operator_col_sel" class="operator_col_sel" [(ngModel)]="filter.filter">
-                    <option value="0">contains</option>
-                    <option value="1">equals</option>
-                    <option value="2">start with</option>
-                    <option value="3">ends with</option>
-                    <option value="4">is not empty</option>
-                    <option value="5">is any empty</option>
+                  <select name="operator_col_sel" class="operator_col_sel" (change)="applyFilter()" [(ngModel)]="filter.filter">
+                    <option value="contains">contains</option>
+                    <option value="equals">equals</option>
+                    <option value="start_with">starts with</option>
+                    <option value="ends_with">ends with</option>
+                    <option value="is_empty">is empty</option>
+                    <option value="is_not_empty">is not empty</option>
                   </select>
                   <mat-icon class="operator_col_sel_icon">arrow_drop_down</mat-icon>
                 </div>
@@ -81,7 +81,7 @@
                     name="value_input_text" 
                     class="value_input_text" 
                     placeholder="Filter Value"
-                    (change)="applyFilter()"
+                    (input)="applyFilter()"
                     [(ngModel)]="filter.filterValue"/>
                 </div>
               </div>
@@ -99,10 +99,16 @@
           </div>
         </div>
       </div>
-      <button class="toolbar-btn">
-        <i class="toolbar-btn-icon"><mat-icon>horizontal_split</mat-icon></i>
-        <span class="toolbar-btn-text">DENSITY</span>
-      </button>
+      <div class="density_pallet">
+        <button class="toolbar-btn">
+          <i class="toolbar-btn-icon"><mat-icon>horizontal_split</mat-icon></i>
+          <span class="toolbar-btn-text">DENSITY</span>
+        </button>
+        <div class="mui_option_list">
+          <div class="mui_items">
+          </div>
+        </div>
+      </div>
       <button class="toolbar-btn">
         <i class="toolbar-btn-icon"><mat-icon>archive</mat-icon></i>
         <span class="toolbar-btn-text">EXPORT</span>
@@ -115,7 +121,7 @@
             <th *ngFor="let head of keys_sel">
               <div class="headitem">
                 <span>{{head}}</span>
-                <div class="sort_option">
+                <div class="sort_option" *ngIf="false">
                   <span class="sort_unset" *ngIf="col_detl[head].sort == 0"> 
                     <mat-icon class="msicon">arrow_downward</mat-icon> 
                   </span>
@@ -126,7 +132,7 @@
                     <mat-icon class="msicon">arrow_upward</mat-icon> 
                   </span>
                 </div>
-                <div class="slider">
+                <div class="slider" *ngIf="false">
                   <div class="drag_icon_container">
                     <mat-icon>drag_indicator</mat-icon>
                   </div>
@@ -136,9 +142,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let data of dataSource">
+          <tr class="multi_tbl_row" *ngFor="let data of dataSource">
             <td *ngFor="let key of keys_sel">
-              <span class="tbtext">{{ data[key] }}</span>
+              <div class="multi_tbl_cell_cont">
+                <span class="tbtext">{{ data[key] }}</span>
+              </div>
             </td>
           </tr>
         </tbody>

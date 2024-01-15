@@ -73,12 +73,6 @@
   padding: 0 3px;
 }
 
-.headitem{
-  display: flex;
-  text-align: center;
-  align-content: center;
-}
-
 .sort_option{
   margin: 5px;
 }
@@ -470,5 +464,34 @@
   
 }
 
+/* table view css */
+.multi_tbl_cell_cont, .headitem{
+  display: flex;
+  max-height: 36px;
+  min-height: 36px;
+  min-width: 100px;
+  padding: 0px 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  align-items: center;
+}
 
+
+.multi_tbl_cell_cont .tbtext{
+  text-wrap: nowrap;
+  text-overflow: ellipsis;  
+}
+
+.multitable  tr:hover{
+  cursor: pointer;
+}
+
+.multitable  tr:hover{
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.multitable  tr:focus-visible{
+  background-color: rgba(45, 131, 170, 0.04);
+}
  

@@ -1,16 +1,5 @@
+import { ColumnDetl } from "./ColumnDetl.model"
 import { Employee } from "./Employee.model"
-
-export enum SortEnum {
-    unset = 0,
-    asc = 1,
-    desc = 2
-  }
-  
-  export interface ColumnDetl{
-    col: (keyof Employee)
-    show: boolean
-    sort: SortEnum
-  }
 
 export interface EmpHead {
     id :ColumnDetl

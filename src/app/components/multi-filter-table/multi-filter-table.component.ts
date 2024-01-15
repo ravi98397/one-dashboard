@@ -1,44 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Employee } from './model/Employee.model';
 import { tbldata } from '../data/data';
-import { KeyValuePipe } from '@angular/common';
+import { DatePipe, KeyValuePipe } from '@angular/common';
 import { EmpHead } from './model/EmpHeader.model';
+import { Connectors } from './model/Connectors.model';
+import { FilterModel, FilterTypes } from './model/FilterModel.model';
+import { TextFilterOptions } from './model/FilterOptions.model';
+import { FilterService } from './services/filter.service';
 
-const TBL_DATA: Employee[] = tbldata; 
-
-export enum SortEnum {
-  unset = 0,
-  asc = 1,
-  desc = 2
-}
-
-export enum FilterOptions {
-  contains = 0,
-  equals,
-  start_with,
-  ends_with,
-  is_empty,
-  is_not_empty
-}
-
-export enum Connectors {
-  none = -1,
-  and = 0,
-  or = 1
-}
-
-export interface FilterModel{
-  col: (keyof Employee);
-  connector: (Connectors);
-  filter: FilterOptions;
-  filterValue: String;
-}
-
-export interface ColumnDetl{
-  col: (keyof Employee)
-  show: boolean
-  sort: SortEnum
-}
+const TBL_DATA: any[] = tbldata; 
 
 @Component({
   selector: 'app-multi-filter-table',
@@ -50,7 +20,9 @@ export class MultiFilterTableComponent implements OnInit {
   column_sel_toggle: boolean = false;
   filter_pallet_toggle: boolean = false;
 
-  dataSource = TBL_DATA;
+  dataSource: Employee[] = TBL_DATA;
+
+  filter_options = Object.values(TextFilterOptions);
 
   keys_sel: (keyof Employee)[] = []
 
@@ -91,14 +63,21 @@ export class MultiFilterTableComponent implements OnInit {
   filters: FilterModel[] = [{
     'col': 'id',
     'connector': Connectors.none,
-    'filter': FilterOptions.contains,
+    'filtertype': FilterTypes.string,
+    'filter': TextFilterOptions.contains,
     'filterValue': ""
   }];
 
-  constructor(){}
+  constructor(public datepipe: DatePipe, public filterService: FilterService){}
 
   ngOnInit(){
     this.columnSelector();
+
+    console.log(Object.keys(TextFilterOptions));
+    for(let data in this.dataSource){
+      /*Updated_on: "1/8/2024, 8:12:10 PM",
+      Created_on: "3/10/2023", */
+    }
   }
 
   column = true;
@@ -142,7 +121,8 @@ export class MultiFilterTableComponent implements OnInit {
     this.filters.push({
       'col': 'id',
       'connector': Connectors.and,
-      'filter': FilterOptions.contains,
+      'filtertype': FilterTypes.string,
+      'filter': TextFilterOptions.contains,
       'filterValue': ""
     })
   }
@@ -155,12 +135,14 @@ export class MultiFilterTableComponent implements OnInit {
     this.filters = [{
       'col': 'id',
       'connector': Connectors.none,
-      'filter': FilterOptions.contains,
+      'filtertype': FilterTypes.string,
+      'filter': TextFilterOptions.contains,
       'filterValue': ""
     }];
   }
 
   applyFilter(){
-
+    console.log("filter invoked");
+    this.dataSource = this.filterService.filter(this.filters, TBL_DATA);
   }
 }

@@ -1,18 +1,18 @@
 
 export interface Employee {
-    id :String
-    Name :String
-    Website :String
+    id :string
+    Name :string
+    Website :string
     Rating :Number
-    Email :String
-    Phone :String
-    Username :String
-    City :String
-    Country :String
-    Company :String
-    Position :String
-    Updated_on :String
-    Created_on :String
-    Is_admin :String
-    Salary :String
+    Email :string
+    Phone :string
+    Username :string
+    City :string
+    Country :string
+    Company :string
+    Position :string
+    Updated_on :Date
+    Created_on :Date
+    Is_admin :Boolean
+    Salary :string
 }

@@ -1,5 +1,8 @@
-<app-side-nav></app-side-nav>
-<app-body>
-  [collapsed]="isSideNavCollapsed"
-  [screenWidth]="screenWidth"
-</app-body>
+<app-login *ngIf="false"></app-login>
+<div class="main-content" *ngIf="true">
+  <app-side-nav></app-side-nav>
+  <app-body>
+    [collapsed]="isSideNavCollapsed"
+    [screenWidth]="screenWidth"
+  </app-body>
+</div>
